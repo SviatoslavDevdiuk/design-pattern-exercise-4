@@ -3,21 +3,18 @@ package main;
 import model.Auction;
 import model.AuctionService;
 import model.Customer;
-
 import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        Customer seller = new Customer("Jan Kowalski");
-        Auction auction = new Auction(1,"Coffee",null,
-                LocalDateTime.now().plusDays(2L),seller,0,null);
+        AuctionService auctionService = AuctionService.getInstance();
+        Auction auction1 = new Auction.AuctionBuilder().withBuyer(new Customer("Sviatoslav Devdiuk"))
+                .withDescription("very interesting thing").withID(43).withItem("Tesla tower mini")
+                .withDueDate(LocalDateTime.of(2019, 03, 25, 18, 30, 00))
+                .withSeller(new Customer("Toys Store \"Wonderwolrd\"")).create();
 
-        AuctionService auctionService = new AuctionService();
-        auctionService.bid(auction,new Customer("Anna Kowalik"),20);
-
-        auctionService.bid(auction,new Customer("Krzysztof Adamowicz"),25);
-
-
-        System.out.println("Auction with id: " + auction.getId()+ " finished. Highest bid: " + auction.getHighestBid() + " PLN.");
+        auctionService.bid(auction1, new Customer("Alberto Fillani"), 250);
+        auctionService.bid(auction1, new Customer("Mihalis Zambidis"), 300);
+        auctionService.bid(auction1, new Customer("Robert Martin"), 500);
     }
 }
