@@ -13,7 +13,7 @@ public class AuctionService implements Notifier {
         return false;
     }
 
-    public static AuctionService instance;
+    private static AuctionService instance;
 
     private AuctionService() {
 
